@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "test": "./node_modules/mocha/bin/mocha",
     "start": "node ./bin/www"
   },
   "dependencies": {
@@ -13,11 +14,8 @@
     "jade": "1.11.0",
     "morgan": "1.7.0",
     "serve-favicon": "2.3.0",
-    "stylus": "0.54.5"
-  },
-  "scripts": {
-    "test": "./node_modules/mocha/bin/mocha",
-    "start": "node ./bin/www"
+    "stylus": "0.54.5",
+    "timeme.js": "^2.0.3"
   },
   "devDependencies": {
     "mocha": "3.1.0"
