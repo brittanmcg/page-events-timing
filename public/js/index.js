@@ -1,53 +1,85 @@
-var winheight, docheight, trackLength, throttlescroll
+/** Scroll events */
+let winHeight;
+let docHeight;
+let trackLength;
+let throttlescroll;
 
 function getDocHeight() {
-    var D = document;
-    return Math.max(
-        D.body.scrollHeight, D.documentElement.scrollHeight,
-        D.body.offsetHeight, D.documentElement.offsetHeight,
-        D.body.clientHeight, D.documentElement.clientHeight
-    )
+  const d = document;
+  return Math.max(
+    d.body.scrollHeight,
+    d.documentElement.scrollHeight,
+    d.body.offsetHeight,
+    d.documentElement.offsetHeight,
+    d.body.clientHeight,
+    d.documentElement.clientHeight
+  );
 }
 
-function getmeasurements(){
-    winheight= window.innerHeight || (document.documentElement || document.body).clientHeight
-    docheight = getDocHeight()
-    trackLength = docheight - winheight
-}
- 
-function amountscrolled(){
-    var winheight= window.innerHeight || (document.documentElement || document.body).clientHeight
-    var docheight = getDocHeight()
-    var scrollTop = window.pageYOffset || (document.documentElement || document.body.parentNode || document.body).scrollTop
-    var trackLength = docheight - winheight
-    var pctScrolled = Math.floor(scrollTop/trackLength * 100) // gets percentage scrolled (ie: 80 or NaN if tracklength == 0)
-    console.log(pctScrolled + '% scrolled')
+function getmeasurements() {
+  winHeight =
+    window.innerHeight ||
+    (document.documentElement || document.body).clientHeight;
+  docHeight = getDocHeight();
+  trackLength = docHeight - winHeight;
 }
 
-window.addEventListener("resize", function(){
-    getmeasurements()
-}, false)
- 
-window.addEventListener("scroll", function(){
-    clearTimeout(throttlescroll)
-        throttlescroll = setTimeout(function(){ // throttle code inside scroll to once every 50 milliseconds
-        amountscrolled()
-    }, 50)
-}, false)
+function amountscrolled() {
+  const winHeight =
+    window.innerHeight ||
+    (document.documentElement || document.body).clientHeight;
+  const docHeight = getDocHeight();
+  const scrollTop =
+    window.pageYOffset ||
+    (document.documentElement || document.body.parentNode || document.body)
+      .scrollTop;
+  const trackLength = docHeight - winHeight;
+  const pctScrolled = Math.floor((scrollTop / trackLength) * 100); // gets percentage scrolled (ie: 80 or NaN if tracklength == 0)
+  // Here is where we would assign the pctScrolled to our payload object that we will deliver to the backend
+  console.log(pctScrolled + '% scrolled');
+}
 
+window.addEventListener(
+  'resize',
+  () => {
+    getmeasurements();
+  },
+  false
+);
+
+window.addEventListener(
+  'scroll',
+  () => {
+    clearTimeout(throttlescroll);
+    throttlescroll = setTimeout(() => {
+      // throttle code inside scroll to once every 50 milliseconds
+      amountscrolled();
+    }, 50);
+  },
+  false
+);
+
+/** Timing events */
 TimeMe.initialize({
-	currentPageName: "my-home-page", // current page
-	idleTimeoutInSeconds: 30 // seconds
+  currentPageName: 'my-home-page', // current page
+  idleTimeoutInSeconds: 60 // TODO: determine what we want this to be
 });
 
-var timeSpentOnPage = TimeMe.getTimeOnCurrentPageInSeconds();
-
-TimeMe.callAfterTimeElapsedInSeconds(0, function(){
-	console.log("The user has been actively using the page for 0 seconds! Let's prompt them with something.");
+TimeMe.callAfterTimeElapsedInSeconds(0, () => {
+  console.log(
+    "The user has been actively using the page for 0 seconds! Let's prompt them with something."
+  );
+  // TODO: call backend api with payload here
 });
-TimeMe.callAfterTimeElapsedInSeconds(10, function(){
-	console.log("The user has been actively using the page for 10 seconds! Let's prompt them with something.");
+TimeMe.callAfterTimeElapsedInSeconds(10, () => {
+  console.log(
+    "The user has been actively using the page for 10 seconds! Let's prompt them with something."
+  );
+  // TODO: call backend api with payload here
 });
-TimeMe.callAfterTimeElapsedInSeconds(30, function(){
-	console.log("The user has been actively using the page for 30 seconds! Let's prompt them with something.");
+TimeMe.callAfterTimeElapsedInSeconds(30, () => {
+  console.log(
+    "The user has been actively using the page for 30 seconds! Let's prompt them with something."
+  );
+  // TODO: call backend api with payload here
 });
