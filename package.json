@@ -17,7 +17,7 @@
     "stylus": "0.54.5",
     "timeme.js": "^2.0.3",
     "gulp-concat": "^2.6.1",
-    "gulp": "3.9.1"
+    "gulp": "4.0.2"
   },
   "devDependencies": {
     "mocha": "3.1.0"
